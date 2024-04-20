@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dynamic Paths Example</title>
+</head>
+
+<body>
+  <div id="dcsData" style="display: grid; grid-template-columns: auto auto auto; column-gap: 20px;"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const dcsDataElement = document.getElementById("dcsData");
+      const assetID = window.location.pathname.split("/")[2]; // Assumes the structure /index.html/:assetID
+
+      // Connect to the WebSocket with the extracted assetID
+      const socket = io({
+        query: {
+          assetID: assetID,
+        },
+      });
+
+      // Lắng nghe sự kiện 'assetID' và xử lý thông điệp cho từng assetID
+      socket.on("assetID", (message) => {
+
+        // Check if the received message is for the current assetID
+        if (message.assetID === assetID) {
+          // Parse the JSON string to an object
+          var jsonData = JSON.parse(JSON.parse(message.message));
+          var formattedString = jsonData.map(item => `
+                    <div class="custom-row" 
+                      style=" 
+                      display:grid;
+                      grid-template-rows: auto auto auto;
+                      row-gap: 10px;
+                      border-radius: 20px;
+                      background: #1E3244;
+                      padding: 10px;
+                      color: #FFF;
+                      text-align: center;">
+                      <span class="tag-name" style="text-align:left;font-size: 13px;">${item.Description}</span>
+                      <span class="value" style="text-align:center;font-size: 40px;">${item.Value} ${item.Unit}</span>
+                      <span class="unit" style="text-align:right";font-size: 13px;>${item.TagName}</span>
+                    </div>`).join("");
+          dcsDataElement.innerHTML=formattedString;
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

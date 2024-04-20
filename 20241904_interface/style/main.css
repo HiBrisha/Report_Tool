@@ -1,0 +1,69 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global styles */
+.editBox {
+    display: flex;
+    width: fit-content;
+    height: 20px;
+    margin: 0 auto; /* Center horizontally */
+    outline: none;
+    border: 0;
+    padding: 0;
+    display: block;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* Optional */
+}
+
+tr {
+    width: fit-content;
+}
+
+td {
+    position: relative;
+    width: fit-content;
+    border: 1px solid black;
+}
+
+#parent-td {
+    border: 0;
+}
+
+#a650xBc {
+    border: 0;
+}
+
+#oReportCell {
+    border: 0;
+}
+
+div {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+td div {
+    width: 100%;
+    text-align: center;
+}
+
+div div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 5px;
+}
+
+p {
+    width: fit-content;
+}
