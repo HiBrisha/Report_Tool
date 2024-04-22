@@ -118,75 +118,19 @@ app.get('/api/restrictedCounts', cors(corsOptions), async (req, res) => {
   });
 /******************************************END GET RESTRICTEDCOUNSTS ENDPOINT**************************************/
 
-/******************************************START ACDC DATA ENDPOINT**************************************
- * API Endpoint for retrieving DCS Data ACDC.
+/******************************************START REPORTS DATA ENDPOINT**************************************
+ * API Endpoint for retrieving DCS Data by Report Type.
  * This endpoint retrieves ACDC data from the database based on the provided datetime query parameter.
  * It uses asynchronous execution to fetch data and sends the result as a JSON response.
  * @module acdcDataEndpoint
  * @param {Object} req - The HTTP request object.
  * @param {Object} res - The HTTP response object.
  */
-app.get("/api/v1/data/ACDC", cors(corsOptions), async (req, res) => {
-    // Initialize async function
-    getDataFromDatabase(req, res,mssql,dbConfig,(queryCMD(req.query.datetime,'ACDC','')))
-  });
-/******************************************END ACDC DATA ENDPOINT**************************************/
-
-/******************************************START THANH DAN DONG DATA ENDPOINT**************************************
- * API Endpoint for retrieving DCS Data Thanh Dan Dong.
- * This endpoint retrieves Thanh Dan Dong data from the database based on the provided datetime query parameter.
- * It uses asynchronous execution to fetch data and sends the result as a JSON response.
- * @module ThanhDanDongDataEndpoint
- * @param {Object} req - The HTTP request object.
- * @param {Object} res - The HTTP response object.
- */
-app.get("/api/v1/data/TDD", cors(corsOptions), async (req, res) => {
-    // Initialize async function
-    getDataFromDatabase(req, res,mssql,dbConfig,(queryCMD(req.query.datetime,'TDD','')))
-  });
-/******************************************END THANH DAN DONG DATA ENDPOINT**************************************/
-
-/******************************************START TRAM 220kV DATA ENDPOINT**************************************
- * API Endpoint for retrieving DCS Data Tram220kV.
- * This endpoint retrieves Tram220kV data from the database based on the provided datetime query parameter.
- * It uses asynchronous execution to fetch data and sends the result as a JSON response.
- * @module Tram220kVDataEndpoint
- * @param {Object} req - The HTTP request object.
- * @param {Object} res - The HTTP response object.
- */
-app.get("/api/v1/data/T220", cors(corsOptions), async (req, res) => {
-    // Initialize async function
-    getDataFromDatabase(req, res,mssql,dbConfig,(queryCMD(req.query.datetime,'T220','')))
-  });
-/******************************************END TRAM 220kV DATA ENDPOINT**************************************/
-
-/******************************************START THONG SO VAN HANH H1 DATA ENDPOINT**************************************
- * API Endpoint for retrieving DCS Data Thong So Van Hanh H1.
- * This endpoint retrieves Thong So Van Hanh H1 data from the database based on the provided datetime query parameter.
- * It uses asynchronous execution to fetch data and sends the result as a JSON response.
- * @module Tram220kVDataEndpoint
- * @param {Object} req - The HTTP request object.
- * @param {Object} res - The HTTP response object.
- */
-app.get("/api/v1/data/TSVH_H1", cors(corsOptions), async (req, res) => {
-    // Initialize async function
-    getDataFromDatabase(req, res,mssql,dbConfig,(queryCMD(req.query.datetime,'TSVH_H1','')))
-  });
-/******************************************END THONG SO VAN HANH H1 DATA ENDPOINT**************************************/
-
-/******************************************START THONG SO VAN HANH H2 DATA ENDPOINT**************************************
- * API Endpoint for retrieving DCS Data Thong So Van Hanh H2.
- * This endpoint retrieves Thong So Van Hanh H2 data from the database based on the provided datetime query parameter.
- * It uses asynchronous execution to fetch data and sends the result as a JSON response.
- * @module Tram220kVDataEndpoint
- * @param {Object} req - The HTTP request object.
- * @param {Object} res - The HTTP response object.
- */
-app.get("/api/v1/data/TSVH_H2", cors(corsOptions), async (req, res) => {
-    // Initialize async function
-    getDataFromDatabase(req, res,mssql,dbConfig,(queryCMD(req.query.datetime,'TSVH_H2','')))
-  });
-/******************************************END THONG SO VAN HANH H2 DATA ENDPOINT**************************************/
+app.get("/api/v1/data/:dataType", cors(corsOptions), async (req, res) => {
+  const dataType = req.params.dataType;
+  getDataFromDatabase(req, res, mssql, dbConfig, queryCMD(req.query.datetime, dataType, ''));
+});
+/******************************************END REPORTS DATA ENDPOINT**************************************/
 
 /*******************************************START UPDATING DATA ENDPOINT************************************************
  * API Endpoint for updating data.
