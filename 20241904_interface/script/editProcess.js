@@ -34,7 +34,14 @@ const changeToInput = (button) => {
     var inputElement = document.createElement("input");
     inputElement.type = "number";
     inputElement.setAttribute("inputmode", "numeric");
-    inputElement.value = trueValue.editedValue ? trueValue.editedValue.toFixed(2) : '!'; // Use trueValue or default value if not available
+    if(trueValue.editedValue){
+      inputElement.value = trueValue.editedValue.toFixed(2);
+      imgElement.src = "./assets/edited.png";
+    }else{
+      inputElement.value = "!   ";
+      imgElement.src = "./assets/default.png";
+    }
+    //inputElement.value = trueValue.editedValue ? trueValue.editedValue.toFixed(2) : '!'; // Use trueValue or default value if not available
     inputElement.className = paragraph.className;
     inputElement.id = paragraph.id;
     inputElement.style.width = paragraph.textContent.length * 10 + "px";
