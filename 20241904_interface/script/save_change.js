@@ -1,5 +1,5 @@
 // Function to process and send flagged positions to the server
-const processFlagged = () => {
+const processFlagged = (domain) => {
   // Array to store flagged positions
   var flaggedPositions = [];
   // Set to store processed sTagNames
@@ -59,14 +59,21 @@ const processFlagged = () => {
   console.log(flaggedPositions);
   // Send flagged positions to the server
   flaggedPositions.length > DataManipulator.editedObject.length ?
-    sendFlaggedPositionsToServer(flaggedPositions) :
-    sendFlaggedPositionsToServer(flaggedPositions.concat(processData(DataManipulator.editedObject, flaggedPositions)));
+    sendFlaggedPositionsToServer(flaggedPositions,domain) :
+    sendFlaggedPositionsToServer(flaggedPositions.concat(processData(DataManipulator.editedObject, flaggedPositions)),domain);
 };
 
 // Function to send data to the server asynchronously
-const sendFlaggedPositionsToServer = async (flaggedPositions) => {
+const sendFlaggedPositionsToServer = async (flaggedPositions,domain) => {
   try {
     const url = "https://avuong.net:448/api/v1/data/update";
+    const inDate  = document.getElementById('date').value;
+
+    const bodyObject = {
+      data: flaggedPositions,
+      type: domain,
+      date:inDate
+  };
 
     // Send a POST request using fetch()
     const response = await fetch(url, {
@@ -76,7 +83,7 @@ const sendFlaggedPositionsToServer = async (flaggedPositions) => {
         "Access-Control-Allow-Origin": "null", // Add this header
         "Access-Control-Allow-Credentials": "true", // Add this header
       },
-      body: JSON.stringify(flaggedPositions),
+      body: JSON.stringify(bodyObject),
     });
 
     // Check the response from the server

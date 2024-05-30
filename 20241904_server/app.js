@@ -12,6 +12,7 @@ const mssql = require("mssql");
 const socketio = require("socket.io");
 const { dbConfig, corsOptions } = require("./configs/config")
 const { getDataFromDatabase,updateDataToDataBase } = require("./controllers/dataController")
+const {createFile} = require('./controllers/fileDocController')
 const {getRestrictedCounts} = require("./router/taskRouter")
 const {selectData} = require("./controllers/sqlController")
 const { queryCMD } = require("./sql/query")
@@ -143,11 +144,14 @@ app.get("/api/v1/data/:dataType", cors(corsOptions), async (req, res) => {
  */
 app.post("/api/v1/data/update", cors(corsOptions), async (req, res) => {
     updateDataToDataBase(req,res,mssql,dbConfig)
+    const newData = await selectData(mssql, dbConfig,queryCMD(req.body.date, req.body.type, ''));
+    //console.log(JSON.stringify(newData));
+    createFile(req.body.type + '_'+ req.body.date,JSON.stringify(newData))
   });
 /******************************************END UPDATING DATA ENDPOINT**************************************/
  
 // Start the HTTPS server
-server.listen(port, () => {
+app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
   });
 
