@@ -66,7 +66,7 @@ const processFlagged = (domain) => {
 // Function to send data to the server asynchronously
 const sendFlaggedPositionsToServer = async (flaggedPositions,domain) => {
   try {
-    const url = "https://avuong.net:448/api/v1/data/update";
+    const url = "http://127.0.0.1:448/api/v1/data/update";
     const inDate  = document.getElementById('date').value;
 
     const bodyObject = {

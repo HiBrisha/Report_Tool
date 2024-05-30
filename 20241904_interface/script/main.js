@@ -29,7 +29,7 @@ const DataManipulator = {
   },
 
   loadData: function (apiType, dateTime) {
-    const apiUrl = `https://avuong.net:448/api/v1/data/${apiType}?datetime=${dateTime}`;
+    const apiUrl = `http://127.0.0.1:448/api/v1/data/${apiType}?datetime=${dateTime}`;
     //console.log(apiUrl);
     let index = 0;
 
