@@ -18,7 +18,8 @@ const changeToInput = (button) => {
     if (item.sTagName === idString[0] && item.iTime === parseInt(idString[2])) {
       trueValue = {
         value: item.Value,
-        editedValue: item.EditedValue
+        editedValue: item.EditedValue,
+        state:item.state
       };
     }
   });
@@ -33,7 +34,14 @@ const changeToInput = (button) => {
     var inputElement = document.createElement("input");
     inputElement.type = "number";
     inputElement.setAttribute("inputmode", "numeric");
-    inputElement.value = trueValue.editedValue ? trueValue.editedValue.toFixed(2) : ''; // Use trueValue or default value if not available
+    if(trueValue.editedValue){
+      inputElement.value = trueValue.editedValue.toFixed(2);
+      imgElement.src = "./assets/edited.png";
+    }else{
+      inputElement.value = "!   ";
+      imgElement.src = "./assets/default.png";
+    }
+    //inputElement.value = trueValue.editedValue ? trueValue.editedValue.toFixed(2) : '!'; // Use trueValue or default value if not available
     inputElement.className = paragraph.className;
     inputElement.id = paragraph.id;
     inputElement.style.width = paragraph.textContent.length * 10 + "px";
@@ -53,11 +61,17 @@ const changeToInput = (button) => {
   } else if (paragraph.tagName === "INPUT") {
     // Find the img element within the button
     const imgElement = button.querySelector("img");
-    imgElement.src = "./assets/edit.png"; // Change the button image
 
     // Create a paragraph element
     var pElement = document.createElement("p");
-    pElement.textContent = trueValue.value ? trueValue.value.toFixed(2) : ''; // Use trueValue or default value if not available
+    if(trueValue.value){
+      pElement.textContent = trueValue.value.toFixed(2);
+      imgElement.src = "./assets/dcs_data.png";
+    }else{
+      pElement.textContent = "!   ";
+      imgElement.src = "./assets/default.png";
+    }
+    //pElement.textContent = trueValue.value ? trueValue.value.toFixed(2) : '!'; // Use trueValue or default value if not available
     pElement.className = paragraph.className;
     pElement.id = paragraph.id;
     parentDiv.replaceChild(pElement, paragraph); // Replace input element with paragraph element

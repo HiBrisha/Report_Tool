@@ -17,6 +17,7 @@ const getDataFromDatabase = async (req, res, mssql, dbConfig, queryCMD) => {
 
     // Send the retrieved data back to the client as JSON
     res.json(data);
+    return JSON.stringify(data);
   } catch (error) {
     // Handle errors if any
     console.error("Error:", error);
@@ -38,7 +39,7 @@ const getDataFromDatabase = async (req, res, mssql, dbConfig, queryCMD) => {
 const updateDataToDataBase = async (req, res, mssql, dbConfig) => {
   try {
     // Execute SQL query to retrieve data from the database
-    const requestData = req.body;
+    const requestData = req.body.data;
     const data = await updateData(mssql, dbConfig, requestData);
 
     // Send the retrieved data back to the client as JSON

@@ -47,6 +47,8 @@ const DataManipulator = {
             case "TDD":
             case "TSVH_H1":
             case "TSVH_H2":
+            case "TSVHD_H1":
+            case "TSVHD_H2":
             case "T220":
               index = item.iTime - 1;
               break;
@@ -69,9 +71,14 @@ const DataManipulator = {
               const pElement = document.createElement("p");
               pElement.className = "editBox";
               pElement.id = `${item.sTagName}-${item.iDate}-${item.iTime}`;
-              pElement.innerText = item.Value.toFixed(2);
+              if(item.Value!=null){
+                pElement.innerText = item.Value.toFixed(2);
+                imgElement.src = "./assets/dcs_data.png"
+              }else{
+                pElement.innerText = '!';
+                imgElement.src = "./assets/default.png"
+              }
               divElement.appendChild(pElement);
-              imgElement.src = "./assets/edit.png";
             } else {
               const inputElement = document.createElement("input");
               inputElement.className = "editBox";

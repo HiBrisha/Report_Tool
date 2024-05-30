@@ -18,8 +18,8 @@
 const dbConfig = {
   user: "sql_service_user",
   password: "Pass@work1",
-  server: "S06",
-  database: "CMW_iDB",
+  server: "192.168.54.163",
+  database: "XHQDB",
   options: {
     encrypt: true,
     trustServerCertificate: true,
